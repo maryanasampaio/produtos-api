@@ -13,10 +13,14 @@ if ($path === '/produtos' && $method === 'GET') {  //verifica se é para buscar 
 listarProdutos($pdo); //chama a função que retorna a lista de produtos (acessivel após a importação de routes)
 
 } elseif ($path === '/produtos' && $method === 'POST') { //verfica se é para criar um novo produto
+criarProduto($pdo); //chama função que cria um novo produto no banco 
 
-// criarProduto($pdo); //chama função que cria um novo produto no banco 
-}else {
-
+}elseif($path === '/produtos' && $method === 'PUT'){
+atualizarProduto($pdo); //chama função que atualiza um produto especifico no banco
+}else if($path == '/produtos' && $method === 'DELETE'){ 
+deletarProduto($pdo);//chama função que deleta um produto especifico no banco
+}
+else {
 http_response_code(404);  // caso não haja nenhuma requisição, exibir erro do cliente 
 
 echo json_encode(['erro' => 'Rota não encontrada']);
