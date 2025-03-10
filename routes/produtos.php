@@ -4,54 +4,48 @@
 require '../src/ProdutoController.php';
 
 $json = file_get_contents('php://input');
+$data  = json_decode($json, true);
 
 
 
-function listarProdutos($pdo) { // função que será exibida na requisição get (vai receber por parametro o banco)
-
-$stmt = $pdo->query('SELECT * FROM produtos'); //permite a manipulação. executa o comando select, para exibir todos os produtos  presentes na tabela
-
-$produtos = $stmt->fetchAll(PDO::FETCH_ASSOC); //converte os resultados da consulta em um array associativo, onde os nomes das colunas viram as chaves do array.
-
-echo json_encode($produtos); //transforma o array associativo em uma string no formato JSON e imprime o resultado, que será enviado como resposta para quem fez a requisição.
-
+function listarProdutos($pdo) {
+    $stmt = $pdo->query('SELECT * FROM produtos'); //executa um select na tabela produtos 
+    echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC)); // converte o retorno em json 
 }
 
-function criarProduto($pdo) {
-    $json = file_get_contents('php://input');
-    $data = json_decode($json, true);
 
-    if (isset($data['nome']) && isset($data['descricao']) && isset($data['preco'])) {
-        // Chama o método do controller para criar o produto 
-        error_log("passou aqui");
-        ProdutoController::criar($pdo);  // Aqui, a lógica de criação é delegada ao controller
+function criarProduto($pdo) {
+    global $data; //converte dados para um array
+
+    if (isset($data['nome']) && isset($data['descricao']) && isset($data['preco'])) { //garante a existencia desses campos no array
+        ProdutoController::criar($pdo, $data); // cria o produto e retorna resultado em json 
     } else {
-        echo json_encode(['status' => 'erro', 'message' => 'Dados insuficientes']);
+        echo json_encode(['status' => 'erro', 'message' => 'Dados insuficientes']); //caso os dados não estiverem preenchidos corretamente
     }
 }
 
 function atualizarProduto($pdo) {
-    $json = file_get_contents('php://input');
-    $data = json_decode($json, true);
+    global $data; //converte dados para um array
+
+    //verifica se os campos obirgatórios estão inseridos (devem ser igual aos da tabela)
     if (isset($data['id']) && isset($data['nome']) && isset($data['descricao']) && isset($data['preco'])) {
-        // Chama o método do controller para atualizar o produto
-        ProdutoController::atualizar($pdo);
+        ProdutoController::atualizar($pdo, $data); //atualiza o produto, retornando o resultado como json 
     } else {
-        echo json_encode(['status' => 'erro', 'message' => 'Dados insuficientes']);
+        echo json_encode(['status' => 'erro', 'message' => 'Dados insuficientes']); //caso os dados não estiverem preenchidos corretamente
     }
 }
 
 function deletarProduto($pdo){
-    $json = file_get_contents('php://input');
-    $data = json_decode($json, true);
-    //verifica se o arquivo a ser deletado existe na tabela
-    if(isset($data['id'])){
-        ProdutoController::deletar($pdo);
-    }else{
+    global $data;
 
-        echo json_encode([
-        'status' => 'erro',
-        'message' => 'ID do produto não informado'
-        ]);
+    if(isset($data['id'])){
+        ProdutoController::deletar($pdo, $data['id']);
+    }else{
+        echo json_encode(['status' => 'erro', 'message' => 'Dados insuficientes']);
     }
 }
+
+
+
+
+?>

@@ -8,8 +8,9 @@ $password = '123456'; //senha
 
 try { //armazena o que pode dar erro 
 
-    $pdo = new PDO("pgsql:host=$host;port=8080;dbname=$dbname", $user, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo = new PDO("pgsql:host=$host;port=8080;dbname=$dbname", $user, $password); //gera a conexão
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //pega os atributos e os valores 
+    echo "conexão bem-sucedida!";
 } catch (PDOException $e) { //trata o erro caso seja identificado
 die("Erro na conexão: " . $e->getMessage());
 }

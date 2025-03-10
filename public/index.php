@@ -8,21 +8,15 @@ require '../routes/produtos.php'; //necessário para o acesso das funções de r
 $method = $_SERVER['REQUEST_METHOD']; //verifica o tipo de requisição 
 $path = $_SERVER['REQUEST_URI']; //identifica o que a requisição deve fornecer (qual função/redirecionamento)
 
-if ($path === '/produtos' && $method === 'GET') {  //verifica se é para buscar todos os produtos
-
-listarProdutos($pdo); //chama a função que retorna a lista de produtos (acessivel após a importação de routes)
-
-} elseif ($path === '/produtos' && $method === 'POST') { //verfica se é para criar um novo produto
-criarProduto($pdo); //chama função que cria um novo produto no banco 
-
-}elseif($path === '/produtos' && $method === 'PUT'){
-atualizarProduto($pdo); //chama função que atualiza um produto especifico no banco
-}else if($path == '/produtos' && $method === 'DELETE'){ 
-deletarProduto($pdo);//chama função que deleta um produto especifico no banco
-}
-else {
-http_response_code(404);  // caso não haja nenhuma requisição, exibir erro do cliente 
-
-echo json_encode(['erro' => 'Rota não encontrada']);
-
+if ($path === '/produtos' && $method === 'GET') {
+    listarProdutos($pdo); // Retorna todos os produtos
+} elseif ($path === '/produtos' && $method === 'POST') {
+    criarProduto($pdo); // Cria um novo produto
+} elseif ($path === '/produtos' && $method === 'PUT') {
+    atualizarProduto($pdo); // Atualiza um produto
+} elseif ($path === '/produtos' && $method === 'DELETE') {
+    deletarProduto($pdo); // Deleta um produto
+} else {
+    http_response_code(404); // Caso a rota não seja encontrada
+    echo json_encode(['erro' => 'Rota não encontrada']);
 }
