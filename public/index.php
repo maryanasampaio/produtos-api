@@ -2,8 +2,8 @@
 
 //recebe as requisiçoes http e controla seus direcionamentos
 
-require '../config.php'; //permite para o acesso ao banco/dados/tabelas
-require '../routes/produtos.php'; //necessário para o acesso das funções de redirecionamento
+require '../Config/config.php';//permite para o acesso ao banco/dados/tabelas
+require '../src\Routing\Router.php'; //necessário para o acesso das funções de redirecionamento
 
 $method = $_SERVER['REQUEST_METHOD']; //verifica o tipo de requisição 
 $path = $_SERVER['REQUEST_URI']; //identifica o que a requisição deve fornecer (qual função/redirecionamento)

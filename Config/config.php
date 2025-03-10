@@ -14,8 +14,4 @@ try { //armazena o que pode dar erro
 } catch (PDOException $e) { //trata o erro caso seja identificado
 die("Erro na conexão: " . $e->getMessage());
 }
-
-
-
-
 ?>

@@ -1,7 +1,7 @@
 <?php
 //armazena todas as rotas relacionadas a produtos
 
-require '../src/ProdutoController.php';
+require '../src/Controllers/ProdutoController.php';
 
 $json = file_get_contents('php://input');
 $data  = json_decode($json, true);
