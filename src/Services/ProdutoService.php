@@ -34,7 +34,7 @@ class ProdutoService {
             $stmt->execute();
 
             http_response_code(201);
-            return ["status" => "sucesso", "mensagem" => "Produto criado com sucesso"];
+            return ["status" => "sucesso", "mensagem" => "Produto criado!"];
         } catch (PDOException $e) {
             return ["erro" => "Erro ao criar produto: " . $e->getMessage()];
         }
@@ -76,7 +76,7 @@ class ProdutoService {
                 return ["erro" => "Produto não encontrado"];
             }
 
-            return ["status" => "sucesso", "mensagem" => "Produto excluído com sucesso"];
+            return ["status" => "sucesso", "mensagem" => "Produto excluído!"];
         } catch (PDOException $e) {
             return ["erro" => "Erro ao excluir produto: " . $e->getMessage()];
         }
