@@ -7,6 +7,5 @@ class Produto {
     public $nome; 
     public $preco;          //atributos necessários para criar um produto
     public $descricao;
-
 }
 
