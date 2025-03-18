@@ -1,5 +1,5 @@
 <?php
-namespace Src\Controllers; // Definindo o namespace Src\Controllers
+namespace Src\Controllers; 
 
 use Src\Services\ProdutoService;
 use Config\DatabaseConfig;
@@ -16,6 +16,11 @@ class ProdutoController {
         echo json_encode($this->service->listarProdutos());
     }
 
+    public function consultarProduto($id) {
+        echo json_encode($this->service->consultarProduto($id));
+    }
+    
+
     public function criar() {
         $dados = json_decode(file_get_contents("php://input"), true);
         echo json_encode($this->service->criarProduto($dados));
@@ -28,6 +33,11 @@ class ProdutoController {
 
     public function excluir($id) {
         echo json_encode($this->service->excluirProduto($id));
+    }
+
+    public function excluirProdutos(){
+        echo json_encode($this->service->excluirTodos());
+
     }
 }
 ?>

@@ -14,9 +14,12 @@ class Router {
         $controller = new ProdutoController();
 
         $this->routes['GET']['/produtos'] = [$controller, 'listar'];
+        $this->routes['GET']['/produtos/(\d+)'] = [$controller, 'consultarProduto'];
         $this->routes['POST']['/produtos'] = [$controller, 'criar'];
         $this->routes['PUT']['/produtos/(\d+)'] = [$controller, 'atualizar'];
         $this->routes['DELETE']['/produtos/(\d+)'] = [$controller, 'excluir'];
+        $this->routes['DELETE']['/produtos'] = [$controller, 'excluirProdutos'];
+
     }
 
     public function handleRequest(string $method, string $uri) {
@@ -27,7 +30,7 @@ class Router {
                 array_shift($matches); // Remove o primeiro item que é a string completa da correspondência
     
                 // Se a requisição for PUT ou DELETE, passar o ID extraído corretamente
-                if ($method === 'PUT' || $method === 'DELETE') {
+                if ($method === 'PUT' || $method === 'DELETE' || $method === 'GET') {
                     call_user_func($handler, ...$matches);
                 } else {
                     call_user_func($handler);

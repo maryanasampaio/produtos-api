@@ -16,7 +16,7 @@ class DatabaseConfig {
         try {
             $this->pdo = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            //echo "conexão bem-sucedida!"; mensagem de teste de conexão
+            // echo "conexão bem-sucedida!"; //mensagem de teste de conexão
         } catch (PDOException $e) {
             die("Erro na conexão: " . $e->getMessage());
         }
@@ -26,4 +26,8 @@ class DatabaseConfig {
         return $this->pdo;
     }
 }
+$db = new DatabaseConfig();
+$pdo = $db->getConnection();
+
+
 ?>
